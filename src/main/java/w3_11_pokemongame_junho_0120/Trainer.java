@@ -171,7 +171,7 @@ public abstract class Trainer implements ITrainer {
 
     public void move() {
         System.out.println("어디로 이동하시겠습니까?");
-        System.out.println("1: 풀숲 (야생 포켓몬과 만남)\n2: 도시 (상대 트레이너와 만남)");
+        System.out.println("1: 풀숲 (야생 포켓몬과 만남)\n2: 도시 (상대 트레이너와 만남)\n3:달맞이 동산(달속성 포켓몬 진화)");
         int choice = inputReader.nextInt();
 
         switch (choice) {
@@ -183,10 +183,46 @@ public abstract class Trainer implements ITrainer {
                 System.out.println("도시로 이동했습니다.");
                 battle(generateRandomTrainer());
                 break;
+            case 3:
+                System.out.println("달맞이 동산으로 이동을 시도합니다");
+                if (canFly() || canSurf()) {
+                    System.out.println("이동 가능한 포켓몬을 소유하고 있습니다. 달맞이 동산으로 이동합니다.");
+                    moonHillEvolution(); // 달맞이 동산 이벤트 실행
+                } else {
+                    System.out.println("달맞이 동산에 가기 위해 비행 또는 서핑 가능한 포켓몬이 필요합니다.");
+                }
+                break;
             default:
                 System.out.println("이동을 취소했습니다.");
         }
     }
+
+    private void moonHillEvolution() {
+        System.out.println("달맞이 동산에 도착했습니다.");
+
+        boolean evolved = false;
+        for (int i = 0; i < capturedPokemonList.size(); i++) {
+            Pokemon pokemon = capturedPokemonList.get(i);
+            if (isMoonPokemon(pokemon)) {
+                Pokemon evolvedPokemon = pokemon.evolve();
+                System.out.println(pokemon.getPokemonName() + "이(가) 진화하여 " + evolvedPokemon.getPokemonName() + "이(가) 되었습니다!");
+                capturedPokemonList.set(i, evolvedPokemon); // 진화된 포켓몬으로 교체
+                evolved = true;
+            }
+
+        }
+        if(!evolved) {
+            System.out.println("진화할 포켓몬이 없습니다.");
+        }
+
+    }
+
+    private boolean isMoonPokemon(Pokemon pokemon) {
+        // 특정 달 속성 포켓몬 체크 (푸린, 삐삐 등)
+        return pokemon.getPokemonName().equalsIgnoreCase("purin") ||
+                pokemon.getPokemonName().equalsIgnoreCase("bbibbi");
+    }
+
 
     private Pokemon generateWildPokemon() {
         return new Pokemon("야생 포켓몬", 50, 5, "Normal"); // 임의의 야생 포켓몬 생성
@@ -283,6 +319,16 @@ public abstract class Trainer implements ITrainer {
 
     public List<Pokemon> getCapturedPokemonList() {
         return capturedPokemonList;
+    }
+
+    // Fly 또는 Surf가 가능한지 확인
+    public boolean canFly() {
+        return capturedPokemonList.stream().anyMatch(pokemon -> pokemon instanceof FlyPokemon);
+    }
+
+
+    public boolean canSurf() {
+        return capturedPokemonList.stream().anyMatch(pokemon -> pokemon instanceof SurfPokemon);
     }
 
 }
