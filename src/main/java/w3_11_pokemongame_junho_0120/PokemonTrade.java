@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class PokemonTrade {
     @Getter
@@ -50,7 +51,23 @@ public class PokemonTrade {
         System.out.println("포켓몬 교환 종료");
     }
 
-    // 교환시 득별 동작 발생 포켓몬
+    // 트레이드 시 득별 동작 발생 포켓몬
     private static void SpecialTradePokemon(Pokemon pokemon) {
+        switch (pokemon.getPokemonName().toLowerCase()) {
+            case "butterfly":
+                // 버터플라이는 교환 시 진화
+                System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 진화했습니다!");
+                pokemon.evolve();
+                break;
+            case "eevee":
+                // 이브이는 교환 시 속성 변경
+                String[] attributes = {"Fire", "Water", "Electric", "Psychic"};
+                String newAttribute = attributes[new Random().nextInt(attributes.length)];
+                System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 새로운 속성 " + newAttribute + "을(를) 얻었습니다!");
+                break;
+            default:
+                System.out.println(pokemon.getPokemonName() + "은(는) 특별한 변화를 겪지 않았습니다.");
+                break;
+        }
     }
 }

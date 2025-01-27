@@ -19,14 +19,17 @@ public class PokeDex {
         Pokemon p1 = new Pokemon("butterfly",60,10,"sky");
         Pokemon p2 = new Pokemon("mu",100,20,"legendary");
         Pokemon p3 = new Pokemon("picachu",70,12,"electric");
+        Pokemon p4 = new Pokemon("eevee",80,12,"normal");
         // 위 변수들은 리스트로 변경,
         // 아래 구문들을 반복문으로 변경
         pokemonByName.put("1", p1);
-        pokemonByCategory.get(PokeCategory.WATER).put(p1.getPokemonName(), p1);
+        pokemonByCategory.get(PokeCategory.NORMAL).put(p1.getPokemonName(), p1);
         pokemonByName.put("2", p2);
-        pokemonByCategory.get(PokeCategory.WATER).put(p2.getPokemonName(), p2);
+        pokemonByCategory.get(PokeCategory.NORMAL).put(p2.getPokemonName(), p2);
         pokemonByName.put("3", p3);
-        pokemonByCategory.get(PokeCategory.WATER).put(p3.getPokemonName(), p3);
+        pokemonByCategory.get(PokeCategory.ELECTRIC).put(p3.getPokemonName(), p3);
+        pokemonByName.put("4", p4);
+        pokemonByCategory.get(PokeCategory.NORMAL).put(p4.getPokemonName(), p4);
     }
 
     //
