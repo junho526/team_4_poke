@@ -8,7 +8,7 @@ public class MoonHill implements MapLocation {
     public void enter(Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
         System.out.println("달맞이 동산으로 이동합니다");
 
-        // Fly와 Surf 조건 확인
+        // Fly와 Surf 조건 확인이 필요
         if (!trainer.canFly() && !trainer.canSurf()) {
             System.out.println("달맞이 동산에 이동하려면 Fly 또는 Surf가 필요합니다!");
             return;
