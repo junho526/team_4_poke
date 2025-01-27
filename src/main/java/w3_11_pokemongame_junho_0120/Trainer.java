@@ -166,7 +166,7 @@ public abstract class Trainer implements ITrainer {
 
     public void move() {
         System.out.println("어디로 이동하시겠습니까?");
-        System.out.println("1: 풀숲 (야생 포켓몬과 만남)\n2: 도시 (상대 트레이너와 만남)\n3: 달맞이 동산(특정 포켓몬 진화 가능)");
+        System.out.println("1: 풀숲 (야생 포켓몬과 만남)\n2: 도시 (상대 트레이너와 만남)");
         int choice = inputReader.nextInt();
 
         switch (choice) {

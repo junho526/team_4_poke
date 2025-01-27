@@ -6,13 +6,15 @@ public class MoonHill implements MapLocation{
 
     @Override
     public void enter(Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
+        //매개변수 중 trainer만 사용
         System.out.println("달맞이 동산으로 이동합니다");
 
-        // Fly와 Surf 조건 확인이 필요
-        if (!trainer.canFly() && !trainer.canSurf()) {
-            System.out.println("달맞이 동산에 이동하려면 Fly 또는 Surf가 필요합니다!");
+        // Fly와 Surf 조건 확인 필요
+        if (trainer.canFly() || trainer.canSurf()) {
+            System.out.println("달맞이 동산에 도착했습니다! 포켓몬이 진화합니다.");
             return;
         }
+        System.out.println("달맞이 동산에는 Fly 또는 Surf로만 이동 가능합니다!");
 
         System.out.println("달맞이 동산에 도착했습니다! 포켓몬이 진화합니다.");
 
