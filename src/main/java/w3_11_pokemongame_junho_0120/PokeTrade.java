@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class PokemonTrade {
+public class PokeTrade {
     @Getter
     private final String name;
     private final Map<String, Pokemon> pokemonCollection;
 
-    public PokemonTrade(String name) {
+    public PokeTrade(String name) {
         this.name = name;
         this.pokemonCollection = new HashMap<>();
     }
@@ -24,7 +24,7 @@ public class PokemonTrade {
         return pokemonCollection.remove(pokemonName);
     }
 
-    public static void tradePokemon(PokemonTrade trainer1, String chosenPokemon1, PokemonTrade trainer2, String chosenPokemon2) {
+    public static void tradePokemon(PokeTrade trainer1, String chosenPokemon1, PokeTrade trainer2, String chosenPokemon2) {
         System.out.println("포켓몬 교환 시작");
 
         Pokemon pokemon1 = trainer1.removePokemon(chosenPokemon1);
