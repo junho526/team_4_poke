@@ -20,6 +20,7 @@ public class PokeDex {
         Pokemon p2 = new Pokemon("mu",100,20,"legendary");
         Pokemon p3 = new Pokemon("picachu",70,12,"electric");
         Pokemon p4 = new Pokemon("eevee",80,12,"normal");
+        Pokemon p5 = new Pokemon("machoke",90,12,"fighting");
         // 위 변수들은 리스트로 변경,
         // 아래 구문들을 반복문으로 변경
         pokemonByName.put("1", p1);
@@ -30,11 +31,13 @@ public class PokeDex {
         pokemonByCategory.get(PokeCategory.ELECTRIC).put(p3.getPokemonName(), p3);
         pokemonByName.put("4", p4);
         pokemonByCategory.get(PokeCategory.NORMAL).put(p4.getPokemonName(), p4);
+        pokemonByName.put("5", p5);
+        pokemonByCategory.get(PokeCategory.FIGHTING).put(p5.getPokemonName(), p5);
     }
 
     //
     public enum PokeCategory {
-        WATER, FIRE, EARTH, SKY, LEGENDARY, MYSTIC, NORMAL, ELECTRIC
+        WATER, FIRE, EARTH, SKY, LEGENDARY, MYSTIC, NORMAL, ELECTRIC, FIGHTING
     }
 
     public static Pokemon searchPokemon(String name) {

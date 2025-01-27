@@ -54,9 +54,9 @@ public class PokeTrade {
     // 트레이드 시 득별 동작 발생 포켓몬
     private static void SpecialTradePokemon(Pokemon pokemon) {
         switch (pokemon.getPokemonName().toLowerCase()) {
-            case "butterfly":
-                // 버터플라이는 교환 시 진화
-                System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 진화했습니다!");
+            case "machoke":
+                // 근육몬은 교환 시 마챔프로 변경
+                System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 괴력몬으로 변했습니다!");
                 pokemon.evolve();
                 break;
             case "eevee":
