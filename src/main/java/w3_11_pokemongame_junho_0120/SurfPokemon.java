@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class SurfPokemon extends Pokemon implements ISurfable {
-    // TODO : 생성자 호출부를 메서드로 제공 후 외부에서 접근 못하도록 감추기
+
     public SurfPokemon(String pokemonName, int HP, int level, String type) {
         super(pokemonName, HP, level, type);
     }
