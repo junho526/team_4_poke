@@ -8,9 +8,13 @@ public class SurfPokemon extends Pokemon implements ISurfable {
     // TODO : 생성자 호출부를 메서드로 제공 후 외부에서 접근 못하도록 감추기
     public SurfPokemon(String pokemonName, int HP, int level, String type) {
         super(pokemonName, HP, level, type);
+    }
+    // FlyPokemon과 동일하게 수정
+    public static SurfPokemon createSurfPokemon(String pokemonName, int HP, int level, String type) {
         if (!type.equalsIgnoreCase("water")) {
-            throw new IllegalArgumentException("물타입만 수영가능합니다.");
+            throw new IllegalArgumentException("물타입만 파도타기 가능합니다.");
         }
+        return new SurfPokemon(pokemonName, HP, level, type);
     }
 
     @Override
