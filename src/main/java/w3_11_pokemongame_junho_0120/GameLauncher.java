@@ -8,7 +8,7 @@ public class GameLauncher {
 
         // 플레이어 트레이너 생성
         Trainer jiwoo = new PlayerTrainer("Jiwoo");
-
+        Trainer trainer2 = new PlayerTrainer("trainer2");
         // 기본 포켓몬 추가
         Pokemon pikachu = new Pokemon("Pikachu", 100, 10, "Electric");
         Pokemon purin = new Pokemon("purin", 100, 10, "NORMAL");
@@ -18,6 +18,12 @@ public class GameLauncher {
         jiwoo.getCapturedPokemons().add(purin);
         //jiwoo.getCapturedPokemons().add(butterfly);
         jiwoo.getCapturedPokemons().add(star);
+
+
+
+        Pokemon pikachu2 = new Pokemon("Pikachu", 100, 10, "Electric");
+        trainer2.getCapturedPokemons().add(pikachu2);
+
 
         // 기본 아이템 추가
         jiwoo.addItem(new MonsterBall("Monster Ball", "포켓몬을 포획할 수 있는 몬스터볼", 100,5));
@@ -32,6 +38,7 @@ public class GameLauncher {
             System.out.println("2: 포켓몬 확인");
             System.out.println("3: 아이템 확인");
             System.out.println("4: 게임 종료");
+            System.out.println("5: 트레이드");
             System.out.print("선택: ");
             int choice = input.nextInt();
 
@@ -54,6 +61,9 @@ public class GameLauncher {
                 case 4:
                     System.out.println("게임을 종료합니다.");
                     playing = false;
+                    break;
+                case 5:
+                    jiwoo.trade(trainer2);
                     break;
                 default:
                     System.out.println("잘못된 선택입니다. 다시 시도하세요.");
