@@ -13,6 +13,30 @@ public abstract class Trainer implements ITrainer {
         this.trainerName = trainerName;
     }
 
+    public void trade(Trainer opponentTrainer) {
+        // 서로의 인벤토리 확인
+
+        System.out.println("내 포켓몬: " + capturedPokemonList);
+        System.out.println("상대 포켓몬: " + opponentTrainer.getCapturedPokemonList());
+        //각자 포켓몬 선택
+        System.out.println("교환할 자신의 포켓몬을 골라주세요.");
+        Scanner scannerMy = new Scanner(System.in); // Scanner 객체 생성
+        int myTradePokemon = scannerMy.nextInt(); // 숫자를 입력받아 저장
+        System.out.println("선택한 포켓몬 번호: " + myTradePokemon);
+
+
+
+        System.out.println("교환할 상대의 포켓몬을 골라주세요.");
+
+        Scanner scannerOp = new Scanner(System.in); // Scanner 객체 생성
+        int opponentTrainerTradePokemon = scannerOp.nextInt(); // 숫자를 입력받아 저장
+        System.out.println("선택한 포켓몬 번호: " + opponentTrainerTradePokemon);
+
+
+
+    }
+
+
     @Override
     public void hunt(Pokemon wildPokemon) {
         System.out.println("야생의 포켓몬 " + wildPokemon.getPokemonName() + "을(를) 만났습니다!");
