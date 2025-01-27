@@ -9,7 +9,7 @@ public class MoonHill implements MapLocation {
         //매개변수 중 trainer만 사용
         System.out.println("달맞이 동산으로 이동합니다");
 
-        // Fly와 Surf 조건 확인 요망
+        // Fly와 Surf 조건 확인 필요
         if (trainer.canFly() || trainer.canSurf()) {
             System.out.println("달맞이 동산에 도착했습니다! 포켓몬이 진화합니다.");
             return;
