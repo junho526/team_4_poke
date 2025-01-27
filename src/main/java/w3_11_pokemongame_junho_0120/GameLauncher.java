@@ -11,7 +11,13 @@ public class GameLauncher {
 
         // 기본 포켓몬 추가
         Pokemon pikachu = new Pokemon("Pikachu", 100, 10, "Electric");
+        Pokemon purin = new Pokemon("purin", 100, 10, "NORMAL");
+        //FlyPokemon butterfly = FlyPokemon.createFlyPokemon("butterfly", 100, 10, "sky");
+        SurfPokemon star = SurfPokemon.createSurfPokemon("star", 100, 10, "water");
         jiwoo.getCapturedPokemons().add(pikachu);
+        jiwoo.getCapturedPokemons().add(purin);
+        //jiwoo.getCapturedPokemons().add(butterfly);
+        jiwoo.getCapturedPokemons().add(star);
 
         // 기본 아이템 추가
         jiwoo.addItem(new MonsterBall("Monster Ball", "포켓몬을 포획할 수 있는 몬스터볼", 100,5));
