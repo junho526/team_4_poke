@@ -13,6 +13,11 @@ public abstract class Trainer implements ITrainer {
         this.trainerName = trainerName;
     }
 
+    public void trade(Trainer opponent) {
+        PokeTrade.trade(this, opponent);
+    }
+
+
     @Override
     public void hunt(Pokemon wildPokemon) {
         System.out.println("야생의 포켓몬 " + wildPokemon.getPokemonName() + "을(를) 만났습니다!");
