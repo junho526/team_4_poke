@@ -26,6 +26,7 @@ public class GameLauncher {
             System.out.println("2: 포켓몬 확인");
             System.out.println("3: 아이템 확인");
             System.out.println("4: 게임 종료");
+            System.out.println("5: 트레이드");
             System.out.print("선택: ");
             int choice = input.nextInt();
 
@@ -48,6 +49,9 @@ public class GameLauncher {
                 case 4:
                     System.out.println("게임을 종료합니다.");
                     playing = false;
+                    break;
+                case 5:
+                    jiwoo.trade();
                     break;
                 default:
                     System.out.println("잘못된 선택입니다. 다시 시도하세요.");

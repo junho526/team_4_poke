@@ -13,9 +13,9 @@ public abstract class Trainer implements ITrainer {
         this.trainerName = trainerName;
     }
 
-    public void trade(Trainer opponentTrainer) {
-        PokeTrade.trade(this, opponentTrainer);
+    public void trade() {
 
+        PokeTrade.trade(this,opponentTrainer);
 
     }
 
