@@ -5,6 +5,7 @@ public class AITrainer extends Trainer {
         super(trainerName);
     }
 
+    //
     @Override
     public String getTrainerName() {
         return "";
