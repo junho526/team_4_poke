@@ -179,8 +179,13 @@ public abstract class Trainer implements ITrainer {
                 battle(generateRandomTrainer());
                 break;
             case 3:
-                System.out.println("달맞이 동산으로 이동했습니다.");
-                moonHillEvolution();  //달맞이 동산에서 진화 처리
+                System.out.println("달맞이 동산으로 이동을 시도합니다");
+                if (canFly() || canSurf()) {
+                    System.out.println("이동 가능한 포켓몬을 소유하고 있습니다. 달맞이 동산으로 이동합니다.");
+                    moonHillEvolution(); // 달맞이 동산 이벤트 실행
+                } else {
+                    System.out.println("달맞이 동산에 가기 위해 비행 또는 서핑 가능한 포켓몬이 필요합니다.");
+                }
                 break;
             default:
                 System.out.println("이동을 취소했습니다.");
@@ -200,9 +205,9 @@ public abstract class Trainer implements ITrainer {
                 evolved = true;
             }
 
-            if(!evolved) {
-                System.out.println("진화할 포켓몬이 없습니다.");
-            }
+        }
+        if(!evolved) {
+            System.out.println("진화할 포켓몬이 없습니다.");
         }
 
     }
@@ -315,6 +320,7 @@ public abstract class Trainer implements ITrainer {
     public boolean canFly() {
         return capturedPokemonList.stream().anyMatch(pokemon -> pokemon instanceof FlyPokemon);
     }
+
 
     public boolean canSurf() {
         return capturedPokemonList.stream().anyMatch(pokemon -> pokemon instanceof SurfPokemon);
