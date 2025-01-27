@@ -7,9 +7,10 @@ public class PokeMap {
     private final Map<String, MapLocation> locations = new HashMap<>();
 
     public PokeMap() {
-        // 풀숲과 도시
+        // 풀숲과 도시와 달맞이 동산
         locations.put("GRASSLAND", new Grassland());
         locations.put("CITY", new City());
+        locations.put("MoonHill", new MoonHill());
     }
 
     public void enterLocation(String locationType, Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
