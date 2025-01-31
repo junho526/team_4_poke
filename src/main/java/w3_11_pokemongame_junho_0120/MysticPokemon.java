@@ -4,27 +4,21 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Getter
 public class MysticPokemon extends Pokemon {
 
+    private final int mysticfactor= new Random().nextInt(1,7);
     private static final Map<String, MysticPokemon> mysticPokemons = new HashMap<>();
     private boolean isHidden; // 숨겨진 상태
 
     // private 생성자: 외부에서 직접 호출 불가
-    private MysticPokemon(String pokemonName, int HP, int level, String type) {
+    MysticPokemon(String pokemonName, int HP, int level, String type) {
         super(pokemonName, HP, level, type);
         this.isHidden = true; // 기본적으로 숨겨진 상태로 설정
     }
 
-    /**
-     * 신비 포켓몬 생성 또는 반환 메서드 (소환 아이템에서만 호출 가능).
-     * @param pokemonName 포켓몬 이름
-     * @param HP HP 값
-     * @param level 레벨
-     * @param type 타입
-     * @return MysticPokemon 객체
-     */
     protected static MysticPokemon summonMysticPokemon(String pokemonName, int HP, int level, String type) {
         MysticPokemon pokemon = mysticPokemons.get(pokemonName);
         if (pokemon != null) {

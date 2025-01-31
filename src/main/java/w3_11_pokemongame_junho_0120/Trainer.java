@@ -20,9 +20,12 @@ public abstract class Trainer implements ITrainer {
         this.trainerName = trainerName;
     }
 
-    public void trade(Trainer opponent) {
-        PokeTrade.trade(this, opponent);
+    public void tradeWith(Trainer opponent, Scanner scanner) {
+        System.out.println("\n포켓몬 교환을 시작합니다.");
+        PokeTrade.trade(this, opponent, scanner);
     }
+
+
 
 
     @Override

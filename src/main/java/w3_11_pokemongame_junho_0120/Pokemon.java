@@ -79,4 +79,6 @@ public class Pokemon implements IPokemon {
         return getPokemonName() + " (Level: " + getLevel() + ", HP: " + getHP() + ")";
     }
 
+    public void setType(String newAttribute) {
+    }
 }

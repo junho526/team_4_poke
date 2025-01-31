@@ -1,67 +1,103 @@
 package w3_11_pokemongame_junho_0120;
 
-import java.util.Scanner;
-import java.util.Random;
+import java.util.*;
 
 public class PokeTrade {
 
-    public static void trade(Trainer self, Trainer opponentTrainer) {
-        // 서로의 인벤토리 확인
-        System.out.println("내 포켓몬: " + self.getCapturedPokemonList());
-        System.out.println("상대 포켓몬: " + opponentTrainer.getCapturedPokemonList());
+    private static final Map<String, TradeEffect> tradeEffects = new HashMap<>();
 
-        //각자 포켓몬 선택
-        // 자신의 포켓몬 선택
-        System.out.println("교환할 자신의 포켓몬을 골라주세요.");
-        Scanner scannerMy = new Scanner(System.in); // Scanner 객체 생성
-        int myTradePokemon = scannerMy.nextInt(); // 숫자를 입력받아 저장
-        System.out.println("선택한 자신의 포켓몬 번호: " + myTradePokemon);
-        scannerMy.close();
+    static {
+        tradeEffects.put("machoke", pokemon -> {
+            System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 괴력몬으로 진화했습니다.");
+            pokemon.evolve();
+        });
 
-        // 상대의 포켓몬 선택
-        System.out.println("교환할 상대의 포켓몬을 골라주세요.");
-        Scanner scannerOp = new Scanner(System.in); // Scanner 객체 생성
-        int opponentTrainerTradePokemon = scannerOp.nextInt(); // 숫자를 입력받아 저장
-        System.out.println("선택한 상대의 포켓몬 번호: " + opponentTrainerTradePokemon);
-        scannerOp.close();
+        tradeEffects.put("eevee", pokemon -> {
+            String[] attributes = {"Fire", "Water", "Electric"};
+            String newAttribute = attributes[new Random().nextInt(attributes.length)];
+            pokemon.setType(newAttribute);
+            System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 " + newAttribute + " 속성으로 변경되었습니다.");
+        });
 
-        // 포켓몬 교환
-        Pokemon temp = self.getCapturedPokemonList().get(myTradePokemon); //변경을 위한 임시 변수 temp 생성하고 자신의 포켓몬 저장
-        self.getCapturedPokemonList().set(myTradePokemon,
-                opponentTrainer.getCapturedPokemonList().get(opponentTrainerTradePokemon)); // 상대 포켓몬을 자신의 리스트에 저장
-        opponentTrainer.getCapturedPokemonList().set(opponentTrainerTradePokemon, temp); // 자신의 포켓몬을 상대 리스트에 저장
+        tradeEffects.put("kadabra", pokemon -> {
+            System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 후딘으로 진화했습니다.");
+            pokemon.evolve();
+        });
 
-        // 이벤트 발생
-        SpecialTradePokemon(self.getCapturedPokemonList().get(myTradePokemon));
-        SpecialTradePokemon(opponentTrainer.getCapturedPokemonList().get(opponentTrainerTradePokemon));
-
-        System.out.println(self + "와 " + opponentTrainer + "가 포켓몬을 교환했습니다!");
-        System.out.println(self + "는 " + opponentTrainer.getCapturedPokemonList().get(opponentTrainerTradePokemon) + "을 받았습니다.");
-        System.out.println(opponentTrainer + "는 " + self.getCapturedPokemonList().get(myTradePokemon) + "을 받았습니다.");
-
-        //교환 결과 출력
-        System.out.println("교환완료");
+        tradeEffects.put("graveler", pokemon -> {
+            System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 딱딱구리로 진화했습니다.");
+            pokemon.evolve();
+        });
     }
 
-    // 트레이드 시 특별 동작 발생 포켓몬
-    private static void SpecialTradePokemon(Pokemon pokemon) {
-        switch (pokemon.getPokemonName().toLowerCase()) {
-            case "machoke":
-                // 근육몬은 교환 시 마챔프로 변경
-                System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 괴력몬으로 변했습니다!");
-                pokemon.evolve();
-                break;
-            case "eevee":
-                // 이브이는 교환 시 속성 변경
-                String[] attributes = {"Fire", "Water", "Electric", "Psychic"};
-                String newAttribute = attributes[new Random().nextInt(attributes.length)];
-                System.out.println(pokemon.getPokemonName() + "이(가) 교환으로 인해 새로운 속성 " + newAttribute + "을(를) 얻었습니다!");
-                break;
-            default:
-                System.out.println(pokemon.getPokemonName() + "은(는) 특별한 변화를 겪지 않았습니다.");
-                break;
+    public static void trade(Trainer trainer1, Trainer trainer2, Scanner scanner) {
+        PokeDex.showTradeablePokemons();
+
+        int choice1 = selectPokemon(trainer1, scanner, trainer1.getTrainerName() + "의 포켓몬 선택:");
+        int choice2 = selectPokemon(trainer2, scanner, trainer2.getTrainerName() + "의 포켓몬 선택:");
+
+        if (choice1 == -1 || choice2 == -1) {
+            System.out.println("교환이 취소되었습니다.");
+            return;
+        }
+
+        List<Pokemon> list1 = trainer1.getCapturedPokemons();
+        List<Pokemon> list2 = trainer2.getCapturedPokemons();
+
+        Pokemon temp = list1.get(choice1);
+        list1.set(choice1, list2.get(choice2));
+        list2.set(choice2, temp);
+
+        System.out.println(trainer1.getTrainerName() + "와 " + trainer2.getTrainerName() + "가 포켓몬을 교환했습니다.");
+        System.out.println(trainer1.getTrainerName() + "는 " + list1.get(choice1).getPokemonName() + "을 받았습니다.");
+        System.out.println(trainer2.getTrainerName() + "는 " + list2.get(choice2).getPokemonName() + "을 받았습니다.");
+
+        applyTradeEffect(list1.get(choice1));
+        applyTradeEffect(list2.get(choice2));
+
+        applyMysticTradeEffect(list1, choice1);
+        applyMysticTradeEffect(list2, choice2);
+    }
+
+    private static int selectPokemon(Trainer trainer, Scanner scanner, String prompt) {
+        List<Pokemon> pokemons = trainer.getCapturedPokemons();
+        if (pokemons.isEmpty()) {
+            System.out.println(trainer.getTrainerName() + "의 포켓몬이 없습니다.");
+            return -1;
+        }
+
+        System.out.println("\n" + prompt);
+        for (int i = 0; i < pokemons.size(); i++) {
+            System.out.println((i + 1) + ". " + pokemons.get(i).getPokemonName());
+        }
+        System.out.print("선택 (취소: 0): ");
+
+        int choice = scanner.nextInt() - 1;
+        if (choice < -1 || choice >= pokemons.size()) {
+            System.out.println("잘못된 선택입니다. 다시 선택하세요.");
+            return selectPokemon(trainer, scanner, prompt);
+        }
+        return choice;
+    }
+
+    private static void applyTradeEffect(Pokemon pokemon) {
+        tradeEffects.getOrDefault(pokemon.getPokemonName().toLowerCase(), p -> {
+            System.out.println(p.getPokemonName() + "은(는) 특별한 변화를 겪지 않았습니다.");
+        }).applyEffect(pokemon);
+    }
+
+    private static void applyMysticTradeEffect(List<Pokemon> pokemons, int index) {
+        Pokemon pokemon = pokemons.get(index);
+        Pokemon evolvedPokemon = PokeDex.applyMysticTradeEffect(pokemon);
+
+        if (evolvedPokemon != null) {
+            System.out.println(pokemon.getPokemonName() + "이(가) Mystic 교환 효과로 인해 " + evolvedPokemon.getPokemonName() + "으로 변했습니다!");
+            pokemons.set(index, evolvedPokemon);
         }
     }
+
+    @FunctionalInterface
+    interface TradeEffect {
+        void applyEffect(Pokemon pokemon);
+    }
 }
-
-

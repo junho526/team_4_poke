@@ -1,5 +1,6 @@
 package w3_11_pokemongame_junho_0120;
 
+import java.lang.reflect.Field;
 import java.util.Scanner;
 
 public class GameLauncher {
@@ -7,27 +8,43 @@ public class GameLauncher {
         Scanner input = new Scanner(System.in);
 
         // 플레이어 트레이너 생성
-        Trainer jiwoo = new PlayerTrainer("Jiwoo");
+        Trainer trainer1 = new PlayerTrainer("Jiwoo");
         Trainer trainer2 = new PlayerTrainer("trainer2");
         // 기본 포켓몬 추가
+
+        MysticPokemon myMystic = new MysticPokemon("근육몬",100,10,"fighting");
+        Class<?> mysticClass= myMystic.getClass();
+        try {
+            Field hiddenField = mysticClass.getDeclaredField("mysticfactor");
+            hiddenField.setAccessible(true);
+            int hiddenValue=(int)hiddenField.get(myMystic);
+            System.out.println("신비숫자"+hiddenValue);
+        }catch (NoSuchFieldException |IllegalAccessException e) {
+            System.err.println(e.getMessage());
+        }
+
+
+
         Pokemon pikachu = new Pokemon("Pikachu", 100, 10, "Electric");
         Pokemon purin = new Pokemon("purin", 100, 10, "NORMAL");
         //FlyPokemon butterfly = FlyPokemon.createFlyPokemon("butterfly", 100, 10, "sky");
         SurfPokemon star = SurfPokemon.createSurfPokemon("star", 100, 10, "water");
-        jiwoo.getCapturedPokemons().add(pikachu);
-        jiwoo.getCapturedPokemons().add(purin);
+        trainer1.getCapturedPokemons().add(pikachu);
+        trainer1.getCapturedPokemons().add(purin);
         //jiwoo.getCapturedPokemons().add(butterfly);
-        jiwoo.getCapturedPokemons().add(star);
+        trainer1.getCapturedPokemons().add(star);
 
 
 
-        Pokemon pikachu2 = new Pokemon("Pikachu", 100, 10, "Electric");
-        trainer2.getCapturedPokemons().add(pikachu2);
+        Pokemon eevee = new Pokemon("Eevee", 80, 12, "Normal");
+        Pokemon machoke = new Pokemon("machoke", 80, 12, "fighting");
+        trainer2.getCapturedPokemons().add(eevee);
+        trainer2.getCapturedPokemons().add(machoke);
 
 
         // 기본 아이템 추가
-        jiwoo.addItem(new MonsterBall("Monster Ball", "포켓몬을 포획할 수 있는 몬스터볼", 100,5));
-        jiwoo.addItem(new HealItem("Potion", "포켓몬의 체력을 회복시켜주는 포션", 50,5));
+        trainer1.addItem(new MonsterBall("Monster Ball", "포켓몬을 포획할 수 있는 몬스터볼", 100,5));
+        trainer1.addItem(new HealItem("Potion", "포켓몬의 체력을 회복시켜주는 포션", 50,5));
 
         boolean playing = true;
 
@@ -44,18 +61,18 @@ public class GameLauncher {
 
             switch (choice) {
                 case 1:
-                    jiwoo.move(); // 맵 이동
+                    trainer1.move(); // 맵 이동
                     break;
                 case 2:
                     System.out.println("Jiwoo가 소유한 포켓몬:");
-                    jiwoo.getCapturedPokemons().forEach(pokemon -> {
+                    trainer1.getCapturedPokemons().forEach(pokemon -> {
                         System.out.println(pokemon.getPokemonName() +
                                 " (Level: " + pokemon.getLevel() + ", HP: " + pokemon.getHP() + ")");
                     });
                     break;
                 case 3:
 
-                    jiwoo.showInventory();
+                    trainer1.showInventory();
 
                     break;
                 case 4:
@@ -63,7 +80,7 @@ public class GameLauncher {
                     playing = false;
                     break;
                 case 5:
-                    jiwoo.trade(trainer2);
+                    trainer1.tradeWith(trainer2,input);
                     break;
                 default:
                     System.out.println("잘못된 선택입니다. 다시 시도하세요.");
