@@ -3,17 +3,17 @@ package w3_11_pokemongame_junho_0120;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PokeMap implements MapLocation {
-    private final Map<String, MapLocation> locations = new HashMap<>();
+public abstract class PokeMap implements MapLocation {
+    private static final Map<String, PokeMap> locations = new HashMap<>();
 
-    public PokeMap() {
+    static {
         locations.put("GRASSLAND", new Grassland());
         locations.put("CITY", new City());
         locations.put("MOONHILL", new MoonHill());
     }
 
-    public void enterLocation(String locationType, Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
-        MapLocation location = locations.get(locationType.toUpperCase());
+    public static void enterLocation(String locationType, Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
+        PokeMap location = locations.get(locationType.toUpperCase());
         if (location != null) {
             location.enter(trainer, enemyTrainer, wildPokemon);
         } else {
@@ -22,8 +22,5 @@ public class PokeMap implements MapLocation {
     }
 
     @Override
-    public void enter(Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
-
-    }
+    public abstract void enter(Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon);
 }
-

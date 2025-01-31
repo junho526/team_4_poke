@@ -7,7 +7,12 @@ public abstract class Trainer implements ITrainer {
     Map<String, Pokemon> capturedPokemonByName = new HashMap<>();
     private final List<PokeItem> inventory = new ArrayList<>();
     private final String trainerName;
-    private final PokeMap pokeMap = new PokeMap();
+    private final PokeMap pokeMap = new PokeMap() {
+        @Override
+        public void enter(Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
+
+        }
+    };
     Scanner inputReader = new Scanner(System.in);
 
 
@@ -173,31 +178,23 @@ public abstract class Trainer implements ITrainer {
 
     public void move() {
         System.out.println("어디로 이동하시겠습니까?");
-        System.out.println("1: 풀숲 (야생 포켓몬과 만남)\n2: 도시 (상대 트레이너와 만남)\n3: 달맞이 동산(특정포켓몬 진화가능)");
+        System.out.println("1: 풀숲 (야생 포켓몬과 만남)");
+        System.out.println("2: 도시 (상대 트레이너와 만남)");
+        System.out.println("3: 달맞이 동산 (특정 포켓몬 진화 가능)");
+
         int choice = inputReader.nextInt();
+        String locationType = switch (choice) {
+            case 1 -> "GRASSLAND";
+            case 2 -> "CITY";
+            case 3 -> "MOONHILL";
+            default -> null;
+        };
 
-        switch (choice) {
-            case 1:
-                System.out.println("풀숲으로 이동을 시도합니다.");
-                pokeMap.enterLocation("GRASSLAND", this, null, generateWildPokemon());
-                break;
-            case 2:
-                System.out.println("도시로 이동을 시도합니다.");
-                pokeMap.enterLocation("CITY", this, generateRandomTrainer(), null);
-                break;
-            case 3:
-                System.out.println("달맞이 동산으로 이동을 시도합니다.");
-                pokeMap.enterLocation("MOONHILL", this, null, null);
-                break;
-            default:
-                System.out.println("이동을 취소했습니다.");
+        if (locationType != null) {
+            PokeMap.enterLocation(locationType, this, generateRandomTrainer(), generateWildPokemon());
+        } else {
+            System.out.println("이동을 취소했습니다.");
         }
-    }
-
-    private boolean isMoonPokemon(Pokemon pokemon) {
-        // 특정 달 속성 포켓몬 체크 (푸린, 삐삐 등)
-        return pokemon.getPokemonName().equalsIgnoreCase("purin") ||
-                pokemon.getPokemonName().equalsIgnoreCase("bbibbi");
     }
 
 
