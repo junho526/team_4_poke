@@ -3,14 +3,13 @@ package w3_11_pokemongame_junho_0120;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PokeMap {
+public class PokeMap implements MapLocation {
     private final Map<String, MapLocation> locations = new HashMap<>();
 
     public PokeMap() {
-        // 풀숲과 도시와 달맞이 동산
         locations.put("GRASSLAND", new Grassland());
         locations.put("CITY", new City());
-        locations.put("MoonHill", new MoonHill());
+        locations.put("MOONHILL", new MoonHill());
     }
 
     public void enterLocation(String locationType, Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
@@ -21,4 +20,10 @@ public class PokeMap {
             System.out.println("알 수 없는 지역입니다.");
         }
     }
+
+    @Override
+    public void enter(Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
+
+    }
 }
+
