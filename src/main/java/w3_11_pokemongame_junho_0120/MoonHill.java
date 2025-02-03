@@ -2,13 +2,22 @@ package w3_11_pokemongame_junho_0120;
 
 import java.util.List;
 
-public class MoonHill extends PokeMap {
+public class MoonHill extends PokeMap implements MapLocation {
+    private static final MoonHill instance = new MoonHill();
+
+    // 싱글톤
+    private MoonHill() {}
+
+    // 전역에서 접근할 수 있는 static 메서드 제공
+    public static MoonHill getInstance() {
+        return instance;
+    }
 
     @Override
     public void enter(Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
         System.out.println("달맞이 동산으로 이동을 시도합니다.");
 
-        // Fly 또는 Surf 없으면 이동 불가
+        // Fly 또는 Surf가 없으면 이동 불가
         if (!trainer.canFly() && !trainer.canSurf()) {
             System.out.println("달맞이 동산에는 Fly 또는 Surf로만 이동 가능합니다!");
             return;
@@ -30,7 +39,6 @@ public class MoonHill extends PokeMap {
             }
         }
 
-        // 진화한 포켓몬이 없을 경우 메시지 출력
         if (!evolved) {
             System.out.println("진화할 포켓몬이 없습니다.");
         }

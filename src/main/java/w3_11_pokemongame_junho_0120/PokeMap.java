@@ -9,7 +9,7 @@ public abstract class PokeMap implements MapLocation {
     static {
         locations.put("GRASSLAND", new Grassland());
         locations.put("CITY", new City());
-        locations.put("MOONHILL", new MoonHill());
+        locations.put("MOONHILL", MoonHill.getInstance());
     }
 
     public static void enterLocation(String locationType, Trainer trainer, Trainer enemyTrainer, Pokemon wildPokemon) {
